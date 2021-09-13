@@ -1,6 +1,7 @@
 #include "stack.h"
+#include "gtest/gtest.h"
 
-int main(void) {
+/*int main(void) {
 	list_node_t* stack = NULL;
 	for (int i = 0; i < 5; i++) {
 		pushList(&stack, i);
@@ -20,4 +21,4 @@ int main(void) {
 		printf("Pop %d\n", popArray(stackA));
 	}
 	return 0;
-}
+}*/
