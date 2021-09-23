@@ -22,7 +22,7 @@ TEST(popListTest, newTopOfTheStackAfterPopping_4) {
 	pushList(&stack, 4);
 	pushList(&stack, 3);
 	int pop = popList(&stack);
-	EXPECT_EQ(popList(&stack), 4);
+	EXPECT_EQ(stack->data, 4);
 }
 
 TEST(popListTest, poppingElement_3) {
@@ -74,7 +74,7 @@ TEST(popArrayTest, newTopOfTheStackAfterPoppping_4) {
 	pushArray(stack, 4);
 	pushArray(stack, 7);
 	int pop = popArray(stack);
-	EXPECT_EQ(topArray(stack), 4);
+	EXPECT_EQ(stack->data[stack->top - 1], 4);
 }
 
 TEST(popArrayTest, poppingElement_2) {
