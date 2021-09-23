@@ -1,7 +1,6 @@
 #pragma once
-#include <stdlib.h>
-#include <stdio.h>
 #define ARRAY_STACK_SIZE 10
+#define EMPTY_STACK -1
 #pragma warning(disable : 4996)
 
 typedef struct list_node_t {
