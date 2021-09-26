@@ -51,6 +51,21 @@ TEST(popListTest, poppingElement_5) {
 	EXPECT_EQ(popList(&stack), 5);
 }
 
+TEST(popListTest, pointerAfterPoppingLastElement_null) {
+	list_node_t* stack = NULL;
+	list_node_t* node = (list_node_t*)malloc(sizeof(list_node_t));
+	if (node == NULL) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	node->next = stack;
+	node->data = 1;
+	stack = node;
+	int pop = popList(&stack);
+	printf("%p", stack);
+	EXPECT_TRUE(stack == NULL);
+}
+
 TEST(createArrayStackTest, checkingSize_10) {
 	array_stack_t* stack = createArrayStack();
 	EXPECT_EQ(stack->size, 10);
