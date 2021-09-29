@@ -19,6 +19,7 @@ TEST(topListTest, topOfTheStack_1) {
 	}
 	stack->data = 1;
 	EXPECT_EQ(topList(stack), 1);
+	free(stack);
 }
 
 TEST(popListTest, newTopOfTheStackAfterPopping_4)
@@ -35,6 +36,7 @@ TEST(popListTest, newTopOfTheStackAfterPopping_4)
 	stack = node;
 	int pop = popList(&stack);
 	EXPECT_EQ(stack->data, 4);
+	free(stack);
 }
 
 TEST(popListTest, poppingElement_5) {
@@ -49,6 +51,7 @@ TEST(popListTest, poppingElement_5) {
 	node->next = stack;
 	stack = node;
 	EXPECT_EQ(popList(&stack), 5);
+	free(stack);
 }
 
 TEST(popListTest, pointerAfterPoppingLastElement_null) {
@@ -69,11 +72,15 @@ TEST(popListTest, pointerAfterPoppingLastElement_null) {
 TEST(createArrayStackTest, checkingSize_10) {
 	array_stack_t* stack = createArrayStack();
 	EXPECT_EQ(stack->size, 10);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(createArrayStackTest, checkingTop_0) {
 	array_stack_t* stack = createArrayStack();
 	EXPECT_EQ(stack->top, EMPTY_STACK);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(pushArrayTest, addingElement_5) {
@@ -92,6 +99,8 @@ TEST(pushArrayTest, addingElement_5) {
 	stack->top = EMPTY_STACK;
 	pushArray(stack, 5);
 	EXPECT_EQ(stack->data[stack->top], 5);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(pushArrayTest, checkingTopAfterPushing_0) {
@@ -110,6 +119,8 @@ TEST(pushArrayTest, checkingTopAfterPushing_0) {
 	stack->top = EMPTY_STACK;
 	pushArray(stack, 5);
 	EXPECT_EQ(stack->top, 0);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(pushArrayTest, checkingSizeAndTopAfterAllocatingMoreMemory_20_10) {
@@ -131,6 +142,8 @@ TEST(pushArrayTest, checkingSizeAndTopAfterAllocatingMoreMemory_20_10) {
 	}
 	EXPECT_EQ(stack->size, 20);
 	EXPECT_EQ(stack->top, 10);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(topArrayTest, topOfTheStack_4) {
@@ -150,6 +163,8 @@ TEST(topArrayTest, topOfTheStack_4) {
 	stack->top++;
 	stack->data[stack->top] = 4;
 	EXPECT_EQ(topArray(stack), 4);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(popArrayTest, newTopOfTheStackAfterPoppping_4) {
@@ -172,6 +187,8 @@ TEST(popArrayTest, newTopOfTheStackAfterPoppping_4) {
 	stack->data[stack->top] = 5;
 	int pop = popArray(stack);
 	EXPECT_EQ(stack->data[stack->top], 4);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(popArrayTest, poppingElement_2) {
@@ -193,6 +210,8 @@ TEST(popArrayTest, poppingElement_2) {
 	stack->top++;
 	stack->data[stack->top] = 5;
 	EXPECT_EQ(popArray(stack), 5);
+	free(stack->data);
+	free(stack);
 }
 
 TEST(popArrayTest, checkingTopAfterPopping_1) {
@@ -215,6 +234,8 @@ TEST(popArrayTest, checkingTopAfterPopping_1) {
 	stack->data[stack->top] = 5;
 	int pop = popArray(stack);
 	EXPECT_EQ(stack->top, 0);
+	free(stack->data);
+	free(stack);
 }
 
 int main(int argc, char* argv[]) {
