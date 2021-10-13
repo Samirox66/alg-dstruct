@@ -7,9 +7,6 @@
 #define MAX_ALLOCATING_SIZE 1000
 #define MAX_ITERATIONS 100
 
-typedef void* alloc_t(int size);
-typedef void freeloc_t(void* ptr);
-
 double mallocTest(LARGE_INTEGER frequency, int size);
 double memallocTest(LARGE_INTEGER frequency, int size);
 
