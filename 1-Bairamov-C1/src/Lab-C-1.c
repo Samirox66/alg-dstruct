@@ -1,5 +1,53 @@
 #pragma warning(disable: 4996)
-#include "Lab-C-1.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct node_t {
+    int number;
+    struct node_t* node;
+} node_t;
+
+typedef struct {
+    node_t* begin;
+    node_t* end;
+} list_t;
+
+void freeList(list_t* list);
+int readList(list_t lists[], int length);
+int* DFS(list_t lists[], int length, int* lengthDFS);
+
+int main(void) {
+    list_t* lists;
+    int n, i, lengthDFS;
+    int error;
+    int* dfs;
+    if (scanf("%d", &n) < 0) {
+        printf("Error reading from stdin\n");
+        return 1;
+    }
+    lists = (list_t*)malloc(sizeof(list_t) * n);
+    if (!lists) {
+        return 1;
+    }
+    for (i = 0; i < n; i++) {
+        lists[i].begin = NULL;
+        lists[i].end = NULL;
+    }
+    error = readList(lists, n);
+    if (error == 1) {
+        free(lists);
+        return 1;
+    }
+    dfs = DFS(lists, n, &lengthDFS);
+    for (i = 0; i < lengthDFS; i++) {
+        printf("%d ", dfs[i]);
+    }
+    for (i = 0; i < n; i++) {
+        freeList(&lists[i]);
+    }
+    free(lists);
+    return 0;
+}
 
 void freeList(list_t* list) {
     node_t* curElement = list->begin;
@@ -72,7 +120,7 @@ int readList(list_t lists[], int length) {
     return 0;
 }
 
-int* DFS(list_t adjLists[], int length, int* lengthDFS) {
+int* DFS(list_t lists[], int length, int* lengthDFS) {
     int* dfs = (int*)malloc(sizeof(int) * length);
     struct {
         int* elements;
@@ -94,7 +142,7 @@ int* DFS(list_t adjLists[], int length, int* lengthDFS) {
     stack.topOfStack = 0;
 
     while (stack.topOfStack != -1) {
-        curNode = adjLists[i].begin;
+        curNode = lists[i].begin;
         for (j = 0; j < *lengthDFS; j++) {
             if (curNode != NULL && curNode->number == dfs[j]) {
                 curNode = curNode->node;
