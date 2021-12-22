@@ -35,7 +35,7 @@ tree_t* createNode(tree_t* parent, int left, int right);
 int addByLeftBorder(tree_t** tree, int left, int right);
 tree_t* findByBorders(tree_t* tree, int left, int right);
 void equateNodes(tree_t* deleted, tree_t* newSon);
-int deleteByBorders(tree_t* needed);
+int deleteByBorders(tree_t** tree, int left, int right);
 int destroyTree(tree_t* tree);
 
 int writeAnswer(int left, int right, answer_t* answer);

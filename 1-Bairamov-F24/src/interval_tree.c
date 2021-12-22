@@ -81,11 +81,64 @@ void equateNodes(tree_t* deleted, tree_t* newSon) {
 	return;
 }
 
-int deleteByBorders(tree_t* needed) {
-	if (!needed) {
+int deleteByBorders(tree_t** tree, int left, int right) {
+	if (!(*tree) || left > right) {
 		return ERROR;
 	}
-	tree_t* temp = needed;
+	tree_t* temp = (*tree);
+	while (temp) {
+		if (left < temp->leftBorder) {
+			temp = temp->left;
+		}
+		else if (left > temp->leftBorder) {
+			temp = temp->right;
+		}
+		else if (right != temp->rightBorder) {
+			temp = temp->right;
+		}
+		else {
+			break;
+		}
+	}
+	if (!temp->parent) {
+		if (temp->left && !temp->right) {
+			(*tree) = temp->left;
+			(*tree)->parent = NULL;
+		}
+		else if (temp->right && !temp->left) {
+			(*tree) = temp->right;
+			(*tree)->parent = NULL;
+		}
+		else if (temp->right && temp->left) {
+			temp = temp->left;
+			while (temp->right) {
+				temp = temp->right;
+			}
+			equateNodes((*tree), temp);
+			if (!temp->left) {
+				if (temp->parent->left == temp) {
+					temp->parent->left = NULL;
+				}
+				else {
+					temp->parent->right = NULL;
+				}
+			}
+			else if (temp->left) {
+				if (temp->parent->left == temp) {
+					temp->parent->left = temp->left;
+				}
+				else {
+					temp->parent->right = temp->left;
+				}
+				temp->left->parent = temp->parent;
+			}
+			free(temp);
+		}
+		else {
+			(*tree) = NULL;
+		}
+		return COMPLETED;
+	}
 	if (!temp->left && !temp->right) {
 		if (temp->parent->left == temp) {
 			temp->parent->left = NULL;
@@ -115,13 +168,12 @@ int deleteByBorders(tree_t* needed) {
 		}
 		temp->left->parent = temp->parent;
 	}
-
 	else if (temp->left && temp->right) {
 		temp = temp->left;
 		while (temp->right) {
 			temp = temp->right;
 		}
-		equateNodes(needed, temp);
+		equateNodes((*tree), temp);
 		if (!temp->left) {
 			if (temp->parent->left == temp) {
 				temp->parent->left = NULL;

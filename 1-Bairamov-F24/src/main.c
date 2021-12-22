@@ -21,7 +21,7 @@ int main(void) {
 			addByLeftBorder(&tree, left, right);
 		}
 		else if (operation == 'd') {
-			deleteByBorders(findByBorders(tree, left, right));
+			deleteByBorders(&tree, left, right);
 		}
 		else if (operation == 'f') {
 			if (findByBorders(tree, left, right)) {
